@@ -10,7 +10,7 @@ import Foundation
 class Calculs {
     var calculText: ((String) -> Void)?
     var displayAlert: ((String) -> Void)?
-    var expression: String = "" {
+    var expression: String = "1 + 1 = 2" {
         didSet {
             calculText?(expression)
         }
@@ -19,13 +19,13 @@ class Calculs {
         return expression.split(separator: " ").map { "\($0)" }
     }
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-"
+        return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
     }
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
     var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-"
+        return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
     }
     var expressionHaveResult: Bool {
         return expression.firstIndex(of: "=") != nil
@@ -44,6 +44,14 @@ class Calculs {
         }
     }
     func calculator() {
+        guard expressionIsCorrect else {
+            displayAlert?("Entrez une valeur correcte")
+            return
+        }
+        guard expressionHaveEnoughElement else {
+            displayAlert?("valeurs manquantes")
+            return
+        }
         var operationsToReduce = elements
         while operationsToReduce.count > 1 {
             let left = Int(operationsToReduce[0])!
