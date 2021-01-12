@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     // View Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
     }
     // View actions
     @IBAction func tappedNumberButton(_ sender: UIButton) {
@@ -41,8 +42,15 @@ class ViewController: UIViewController {
     @IBAction func tappedResetButton(_ sender: UIButton) {
         calcul.clean()
     }
+    func bind() {
+            calcul.calculText = { [ weak self ] text in
+                self?.textView.text = text
+            }
+            calcul.displayAlert = displayAlert
+        }
     func displayAlert(message: String) {
-        let alertController = UIAlertController(title: "zéro", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Alerte", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
+        present(alertController, animated: true)
     }
 }

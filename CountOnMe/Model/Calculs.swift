@@ -62,7 +62,7 @@ class Calculs {
             case "+": result = left + right
             case "-": result = left - right
             case "x": result = left * right
-            case "/": result = left / right
+            case "%": result = left / right
             default: return
             }
             operationsToReduce = Array(operationsToReduce.dropFirst(3))
@@ -71,6 +71,6 @@ class Calculs {
         expression.append(" = \(operationsToReduce.first!)")
     }
     func clean() {
-            expression.append("")
+            expression = "0"
         }
 }
