@@ -35,11 +35,10 @@ class Calculs {
             expression = ""
         }
         expression.append(number)
-        
     }
     func addOperator(operateur: String) {
         if canAddOperator {
-            expression.append(" \(operateur)" )
+            expression.append(" \(operateur) " )
         } else {
             displayAlert?("déja fait")
         }
