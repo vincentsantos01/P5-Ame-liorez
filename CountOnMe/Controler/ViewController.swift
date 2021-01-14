@@ -49,7 +49,7 @@ class ViewController: UIViewController {
             calcul.displayAlert = displayAlert
         }
     func displayAlert(message: String) {
-        let alertController = UIAlertController(title: "Alerte", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Attention", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
         present(alertController, animated: true)
     }

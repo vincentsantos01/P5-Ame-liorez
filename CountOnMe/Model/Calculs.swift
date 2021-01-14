@@ -40,7 +40,7 @@ class Calculs {
         if canAddOperator {
             expression.append(" \(operateur) " )
         } else {
-            displayAlert?("déja fait")
+            displayAlert?("Type d'opération déja saisie")
         }
     }
     func calculator() {
