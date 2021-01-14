@@ -19,13 +19,13 @@ class Calculs {
         return expression.split(separator: " ").map { "\($0)" }
     }
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "%"
     }
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
     var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "%"
     }
     var expressionHaveResult: Bool {
         return expression.firstIndex(of: "=") != nil
@@ -35,10 +35,11 @@ class Calculs {
             expression = ""
         }
         expression.append(number)
+        
     }
     func addOperator(operateur: String) {
         if canAddOperator {
-            expression.append("\(operateur)")
+            expression.append(" \(operateur)" )
         } else {
             displayAlert?("déja fait")
         }
@@ -71,6 +72,6 @@ class Calculs {
         expression.append(" = \(operationsToReduce.first!)")
     }
     func clean() {
-            expression = "0"
+            expression = ""
         }
 }
