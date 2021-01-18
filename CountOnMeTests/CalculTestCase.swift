@@ -12,7 +12,64 @@ class CalculTestCase: XCTestCase {
 
     func testEssai() {
         let calculs = Calculs()
-        calculs.addOperator(operateur: "x")
-        XCTAssert((calculs.displayAlert == nil))
+        calculs.expression = "1 + 2 = 3"
+        XCTAssertTrue(calculs.canAddOperator)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
