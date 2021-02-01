@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class Calculs {
+class Calculator {
     var calculText: ((String) -> Void)?
     var displayAlert: ((String) -> Void)?
     var expression: String = "1 + 1 = 2" {
@@ -43,7 +43,7 @@ class Calculs {
             displayAlert?("Type d'opération déja saisie")
         }
     }
-    func calculator() {
+    func calculs() {
         guard expressionIsCorrect else {
             displayAlert?("Entrez une valeur correcte")
             return
@@ -52,6 +52,7 @@ class Calculs {
             displayAlert?("valeurs manquantes")
             return
         }
+        
         var operationsToReduce = elements
         while operationsToReduce.count > 1 {
             let left = Int(operationsToReduce[0])!

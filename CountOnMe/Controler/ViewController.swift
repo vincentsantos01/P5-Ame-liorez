@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
-    var calcul = Calculs()
+    var calcul = Calculator()
     // View Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         calcul.addOperator(operateur: "%")
     }
     @IBAction func tappedEqualButton(_ sender: UIButton) {
-        calcul.calculator()
+        calcul.calculs()
     }
     @IBAction func tappedResetButton(_ sender: UIButton) {
         calcul.clean()
