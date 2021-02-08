@@ -24,7 +24,7 @@ class Calculator {
         }
     }
     var elements: [String] {
-        return expression.split(separator: " ").map { "\($0)" }
+        return calculString.split(separator: " ").map { "\($0)" }
     }
     var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "%"
@@ -36,20 +36,24 @@ class Calculator {
         return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "%"
     }
     var expressionHaveResult: Bool {
-        return expression.firstIndex(of: "=") != nil
+        return calculString.firstIndex(of: "=") != nil
     }
     func addNewNumber (number: String) {
         if expressionHaveResult {
-            expression = ""
+            calculString = ""
         }
-        expression.append(number)
+        calculString.append(number)
     }
     func addOperator(operateur: String) {
         if canAddOperator {
-            expression.append(" \(operateur) " )
+            calculString.append(" \(operateur) " )
         } else {
             displayAlert?("Type d'opération déja saisie")
         }
+    }
+    func clean() {
+        calculString.removeAll()
+        calculText?("0")
     }
     func calculs() {
         guard expressionIsCorrect else {
@@ -122,9 +126,6 @@ class Calculator {
          }
          return resultFormated
      }
-    func clean() {
-            expression = ""
-        }
        /* var operationsToReduce = elements
         while operationsToReduce.count > 1 {
             let left = Int(operationsToReduce[0])!
@@ -143,7 +144,5 @@ class Calculator {
         }
         expression.append(" = \(operationsToReduce.first!)")
     }
-    func clean() {
-            expression = ""
-        }*/
+*/
 }
