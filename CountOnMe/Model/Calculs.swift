@@ -38,6 +38,9 @@ class Calculator {
     var expressionHaveResult: Bool {
         return calculString.firstIndex(of: "=") != nil
     }
+    var divisionByZero: Bool {
+        return calculString.contains("% 0")
+    }
     func addNewNumber (number: String) {
         if expressionHaveResult {
             calculString = ""
@@ -62,6 +65,11 @@ class Calculator {
         }
         guard expressionHaveEnoughElement else {
             displayAlert?("valeurs manquantes")
+            return
+        }
+        guard !divisionByZero else {
+            displayAlert?("Division par zero imposible")
+            calculString = ""
             return
         }
        
@@ -109,7 +117,7 @@ class Calculator {
                switch operand {
                case "+": result = left + right
                case "-": result = left - right
-               case "÷": result = left / right
+               case "%": result = left / right
                case "x": result = left * right
                default: return 0.0
                }
