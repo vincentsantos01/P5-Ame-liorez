@@ -28,6 +28,18 @@ class CalculTestCase: XCTestCase {
         calculator.addNewNumber(number: "3")
         XCTAssertTrue(calculator.calculString == "3")
     }
+    // Nous verrifions que la priorité soit respecter
+    func testGivenOrderOfOperations_WhenElementsContainSomething_ThenElementsFollowsOrderOfOperations() {
+        let calculator = Calculator()
+        calculator.addNewNumber(number: "1")
+        calculator.addOperator(operateur: "+")
+        calculator.addNewNumber(number: "1")
+        calculator.addOperator(operateur: "x")
+        calculator.addNewNumber(number: "4")
+        calculator.calculs()
+        XCTAssert(true)
+        XCTAssert(calculator.calculString == "1 + 1 x 4 = 5")
+    }
     // Nous verrifions que nous ne pouvons pas diviser par zéro
     func testGivenDivisionByZero_WhenDivisionByZero_ThenReturnEqual() {
         let calculator = Calculator()
