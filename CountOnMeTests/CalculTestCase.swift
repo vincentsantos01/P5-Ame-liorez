@@ -9,24 +9,46 @@
 import XCTest
 @testable import CountOnMe
 class CalculTestCase: XCTestCase {
-
-    // Nous verrifions que nous pouvons bien ajouter des opérateurs
-    func testGivenCanAddOperator_WhenCanAddOperator_ThenReturnTrue() {
+    // Nous verrifions que si pas d'operateur ont retourne l'alerte
+    func testGivenCompleteOperation_WhenNotOperator_ThenReturnErrorString() {
         let calculator = Calculator()
-        calculator.calculString = " 1 + 2 + 3 "
-        XCTAssertTrue(calculator.canAddOperator)
+        calculator.addNewNumber(number: "2")
+        calculator.addOperator(operateur: "")
+        calculator.addNewNumber(number: "2")
+        var stringError = ""
+        let expectation = self.expectation(description: "operation")
+        calculator.displayAlert = { result in
+            stringError = result
+            expectation.fulfill()
+        }
+        calculator.calculs()
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(stringError, "valeurs manquantes")
     }
-    // Nous verrifions que nous avons bien un résultat a l'opération
-    func testGivenExpressionHaveResult_WhenExpressionHaveResult_ThenReturnTrue() {
+    // Nous verrifions que si un nombre de l'operation est manquant ont retourne l'alerte
+    func testGivenNumberForget_WhenElementsNumberMissing_ThenReturnErrorString() {
         let calculator = Calculator()
-        calculator.calculString = " = 6 "
-        XCTAssertTrue(calculator.canAddOperator)
+        calculator.addNewNumber(number: "1")
+        calculator.addOperator(operateur: "+")
+        calculator.addNewNumber(number: "")
+        var stringError = ""
+        let expectation = self.expectation(description: "number")
+        calculator.displayAlert = { result in
+            stringError = result
+            expectation.fulfill()
+        }
+        calculator.calculs()
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(stringError, "Entrez une valeur correcte")
     }
-    // Nous verrifions que nous pouvons bien ajouter un nombre et qu'il soit bien reconnu
-    func testGivenAddNumber_WhenAddNumber_ThenReturnNumber() {
+    // Nous verrifions que nous avons bien le bon résultat a l'opération simple
+    func testGivenExpressionHaveResult_WhenExpressionHaveResult_ThenReturnOperation() {
         let calculator = Calculator()
         calculator.addNewNumber(number: "3")
-        XCTAssertTrue(calculator.calculString == "3")
+        calculator.addOperator(operateur: "+")
+        calculator.addNewNumber(number: "3")
+        calculator.calculs()
+        XCTAssert(calculator.calculString == "3 + 3 = 6")
     }
     // Nous verrifions que la priorité soit respecter
     func testGivenOrderOfOperations_WhenElementsContainSomething_ThenElementsFollowsOrderOfOperations() {
@@ -37,17 +59,22 @@ class CalculTestCase: XCTestCase {
         calculator.addOperator(operateur: "x")
         calculator.addNewNumber(number: "4")
         calculator.calculs()
-        XCTAssert(true)
         XCTAssert(calculator.calculString == "1 + 1 x 4 = 5")
     }
     // Nous verrifions que nous ne pouvons pas diviser par zéro
-    func testGivenDivisionByZero_WhenDivisionByZero_ThenReturnEqual() {
+    func testGivenDivisionByZero_WhenDivisionByZero_ThenReturnErrorString() {
         let calculator = Calculator()
         calculator.addNewNumber(number: "2")
         calculator.addOperator(operateur: "%")
         calculator.addNewNumber(number: "0")
+        var stringError = ""
+        let expectation = self.expectation(description: "division")
+        calculator.displayAlert = { result in
+            stringError = result
+            expectation.fulfill()
+        }
         calculator.calculs()
-        XCTAssertEqual(calculator.calculString, "")
-        XCTAssertNotNil(calculator.divisionByZero, "Division par zero impossible")
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(stringError, "Division par zero imposible")
     }
 }
