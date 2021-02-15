@@ -48,5 +48,6 @@ class CalculTestCase: XCTestCase {
         calculator.addNewNumber(number: "0")
         calculator.calculs()
         XCTAssertEqual(calculator.calculString, "")
+        XCTAssertNotNil(calculator.divisionByZero, "Division par zero impossible")
     }
 }
