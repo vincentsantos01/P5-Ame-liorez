@@ -41,6 +41,22 @@ class CalculTestCase: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertEqual(stringError, "Entrez une valeur correcte")
     }
+    // Nous verrifions qu'il y est pas plusieurs opérateurs, sinon ont retourne l'alerte
+    func testGivenAddTwoOperators_WhenTwoOperatorDetected_ThenReturnErrorString() {
+        let calculator = Calculator()
+        calculator.addNewNumber(number: "1")
+        calculator.addOperator(operateur: "+")
+        calculator.addOperator(operateur: "+")
+        var stringError = ""
+        let expectation = self.expectation(description: "operators")
+        calculator.displayAlert = { result in
+            stringError = result
+            expectation.fulfill()
+        }
+        calculator.calculs()
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(stringError, "Entrez une valeur correcte")
+    }
     // Nous verrifions que nous avons bien le bon résultat a l'opération simple
     func testGivenExpressionHaveResult_WhenExpressionHaveResult_ThenReturnOperation() {
         let calculator = Calculator()
@@ -53,13 +69,28 @@ class CalculTestCase: XCTestCase {
     // Nous verrifions que la priorité soit respecter
     func testGivenOrderOfOperations_WhenElementsContainSomething_ThenElementsFollowsOrderOfOperations() {
         let calculator = Calculator()
-        calculator.addNewNumber(number: "1")
+        calculator.addNewNumber(number: "2")
         calculator.addOperator(operateur: "+")
-        calculator.addNewNumber(number: "1")
+        calculator.addNewNumber(number: "2")
         calculator.addOperator(operateur: "x")
         calculator.addNewNumber(number: "4")
         calculator.calculs()
-        XCTAssert(calculator.calculString == "1 + 1 x 4 = 5")
+        XCTAssert(calculator.calculString == "2 + 2 x 4 = 10")
+    }
+    // Nous verrifions un calcul long
+    func testGivenLongOperations_WhenElementsContainSomething_ThenElementsFollowsOrderOfOperations() {
+        let calculator = Calculator()
+        calculator.addNewNumber(number: "2")
+        calculator.addOperator(operateur: "+")
+        calculator.addNewNumber(number: "2")
+        calculator.addOperator(operateur: "x")
+        calculator.addNewNumber(number: "4")
+        calculator.addOperator(operateur: "+")
+        calculator.addNewNumber(number: "4")
+        calculator.addOperator(operateur: "%")
+        calculator.addNewNumber(number: "2")
+        calculator.calculs()
+        XCTAssert(calculator.calculString == "2 + 2 x 4 + 4 % 2 = 12")
     }
     // Nous verrifions que nous ne pouvons pas diviser par zéro
     func testGivenDivisionByZero_WhenDivisionByZero_ThenReturnErrorString() {

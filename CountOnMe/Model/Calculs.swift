@@ -87,7 +87,7 @@ class Calculator {
                         var operandIndex = 1
                         
                         
-                        if let index = operationsToReduce.firstIndex(where: { $0 == "x" || $0 == "÷" }) {
+                        if let index = operationsToReduce.firstIndex(where: { $0 == "x" || $0 == "%" }) {
                             
                             operandIndex = index
                             if let leftunwrapp = Double(operationsToReduce[index - 1]) { left = leftunwrapp }
@@ -134,23 +134,4 @@ class Calculator {
          }
          return resultFormated
      }
-       /* var operationsToReduce = elements
-        while operationsToReduce.count > 1 {
-            let left = Int(operationsToReduce[0])!
-            let operand = operationsToReduce[1]
-            let right = Int(operationsToReduce[2])!
-            let result: Int
-            switch operand {
-            case "+": result = left + right
-            case "-": result = left - right
-            case "x": result = left * right
-            case "%": result = left / right
-            default: return
-            }
-            operationsToReduce = Array(operationsToReduce.dropFirst(3))
-            operationsToReduce.insert("\(result)", at: 0)
-        }
-        expression.append(" = \(operationsToReduce.first!)")
-    }
-*/
 }
